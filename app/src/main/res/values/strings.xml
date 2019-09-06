@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SpeakAlarm</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_cancel">キャンセル</string>
+    <string name="btn_ok">OK</string>
+    <string name="time_title">時刻</string>
+    <string name="repetition_title">繰り返し</string>
+</resources>
