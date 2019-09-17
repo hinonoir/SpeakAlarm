@@ -6,11 +6,11 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.*
 
-open class TextAlarm : RealmObject() {
+open class SpeakAlarm : RealmObject() {
     @PrimaryKey
     var id: Long = 0
-    var dateTime: Date = Date()
+    var date: Date = Date()
     // 時間
     // 曜日
-    // テキスト
+    var speakText: String = ""
 }
