@@ -3,6 +3,7 @@ package com.example.speakalarm
 import android.content.Context
 import android.media.AudioManager
 import android.media.AudioManager.STREAM_MUSIC
+import android.media.AudioManager.STREAM_NOTIFICATION
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Build
@@ -35,9 +36,13 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
     private var saturdayCb: Boolean = false
     private var sundayCb: Boolean = false
 
-    private var tts: TextToSpeech? = null
-    private var r: Ringtone? = null
-    private var vibrationCb: Boolean = false
+    private var am: AudioManager? = null // AndroidManager
+    private var preMusicVol: Int? = null // 端末の元の音量設定(アラーム音: メディアの音量)
+    private var preVoiceVol: Int? = null // 端末の元の音量設定(テキスト読み上げ: 着信音の音量)
+    private var onCreateMark: Boolean? = null // onCreateからの起動かを判定
+    private var tts: TextToSpeech? = null // TextToSpeech
+    private var rm: Ringtone? = null // RingtoneManager
+    private var vibrationCb: Boolean = false // バイブレーションのON・OFF
 
     // タイムピッカーダイアログから取得した数字を「時刻」にセットする
     override fun onSelected(hourOfDay: Int, minute: Int) {
@@ -46,13 +51,20 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
 
     // TestDialogの「OK」をタップした処理
     override fun alarmStop() {
-        r?.stop() // アラーム音楽を停止
+        rm?.stop() // アラーム音楽を停止
         speakOut(speakText.text.toString())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
+
+        // オーディオマネージャー取得
+        am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        // 現在の端末の音量設定を格納(onDestroy()・onPause()・onStop()で元に戻す)
+        getPreVolumeConfig()
+        // onCreateから起動したことを確認する
+        onCreateMark = true
 
         // 「時刻」に現在時刻を最初に表示する
         timeText.text = getToday()
@@ -187,14 +199,30 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
             }
         }
 
-        // 音量初期設定
-        volumeConfig(volSeekbar.progress)
-        // 音量のシークバー
-        volSeekbar.setOnSeekBarChangeListener(
+        // アラーム音音量初期設定
+        musicVolumeConfig(musicVolSeekbar.progress)
+        // アラーム音音量のシークバー
+        musicVolSeekbar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
                 //ツマミがドラッグされると呼ばれる
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    volumeConfig(progress)
+                    musicVolumeConfig(progress)
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+                override fun onStopTrackingTouch(seekBar: SeekBar) {}
+            }
+        )
+
+        // テキスト読み上げ音量初期設定
+        voiceVolumeConfig(voiceVolSeekbar.progress)
+        // テキスト読み上げ音量のシークバー
+        voiceVolSeekbar.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener {
+                //ツマミがドラッグされると呼ばれる
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    voiceVolumeConfig(progress)
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -248,11 +276,30 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        // onCreate()から起動した場合は、現在の音量設定を取得しない
+        when (onCreateMark) {
+            true -> onCreateMark = false
+            false -> getPreVolumeConfig() // 現在の音量設定を取得
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        preVolumeSet() // 元の音量設定に戻す
+    }
+
+    override fun onStop() {
+        super.onStop()
+        preVolumeSet() // 元の音量設定に戻す
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        // tts、RingtoneManagerのリソースを解放する
+        // ttsのリソースを解放する
         tts?.shutdown()
-        r?.stop()
+        preVolumeSet() // 元の音量設定に戻す
     }
 
     // Toastメソッド
@@ -305,15 +352,32 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
     // アラームの音楽を鳴らす（RingtoneManager）
     private fun playAlarm() {
         val alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        r = RingtoneManager.getRingtone(baseContext, alarmUri)
-        r?.play()
+        rm = RingtoneManager.getRingtone(baseContext, alarmUri)
+        rm?.play()
+    }
+
+    // アラーム音の音量の設定
+    private fun musicVolumeConfig(volume: Int) {
+        // 音量設定
+        am!!.setStreamVolume(STREAM_NOTIFICATION, volume, 0)
     }
 
     // テキストを読み上げる音量の設定
-    private fun volumeConfig(volume: Int) {
+    private fun voiceVolumeConfig(volume: Int) {
         // 音量設定
-        val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        am.setStreamVolume(STREAM_MUSIC, volume, 0)
+        am!!.setStreamVolume(STREAM_MUSIC, volume, 0)
+    }
+
+    // 現在の端末の音量設定を格納(onDestroy()・onPause()・onStop()で元に戻す)
+    private fun getPreVolumeConfig() {
+        preMusicVol = am!!.getStreamVolume(STREAM_NOTIFICATION) // アラーム音
+        preVoiceVol = am!!.getStreamVolume(STREAM_MUSIC) // テキスト読み上げ音
+    }
+
+    // アラーム音・テキスト読み上げ音の音量設定を戻す
+    private fun preVolumeSet() {
+        am!!.setStreamVolume(STREAM_NOTIFICATION, preMusicVol!!, 0)
+        am!!.setStreamVolume(STREAM_MUSIC, preVoiceVol!!, 0)
     }
 
     // テキストを読み上げる速さの設定
