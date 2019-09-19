@@ -7,7 +7,6 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
-import java.util.*
 
 // タイムピッカーのダイアログ
 class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
@@ -27,10 +26,11 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val c = Calendar.getInstance()
-        // 現在の時刻（初期値）を取得
-        val hour = c.get(Calendar.HOUR_OF_DAY)
-        val minute = c.get(Calendar.MINUTE)
+
+        // EditActivityからセットされている「時間」「分」を受け取る
+        val bundle = arguments
+        val hour = bundle!!.getInt("setHour")
+        val minute = bundle!!.getInt("setMinute")
         return TimePickerDialog(context, this, hour, minute, true)
     }
 

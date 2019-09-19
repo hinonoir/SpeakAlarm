@@ -36,6 +36,9 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
     private var saturdayCb: Boolean = false
     private var sundayCb: Boolean = false
 
+    private var calendar: Calendar? = null // カレンダー
+    private var setHour: Int? = null // セットする時間
+    private var setMinute: Int? = null // セットする分
     private var am: AudioManager? = null // AndroidManager
     private var preMusicVol: Int? = null // 端末の元の音量設定(アラーム音: メディアの音量)
     private var preVoiceVol: Int? = null // 端末の元の音量設定(テキスト読み上げ: 着信音の音量)
@@ -46,7 +49,45 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
 
     // タイムピッカーダイアログから取得した数字を「時刻」にセットする
     override fun onSelected(hourOfDay: Int, minute: Int) {
+        // 現在の時間を取得
+        calendar = Calendar.getInstance() // カレンダー情報取得
+        val currentHourOfDay = calendar!!.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = calendar!!.get(Calendar.MINUTE)
+        // 設定時刻と現在時刻の時間差分を取得
+        val resultHour = hourOfDay - currentHourOfDay
+        val resultMinute = minute - currentMinute
+        var timeLagHour: Int? = null
+        var timeLagMinute: Int? = null
+
+        // resultHourがマイナスか判別
+        if (resultHour < 0) {
+            timeLagHour = (24 - currentHourOfDay) + (hourOfDay)
+        } else {
+            timeLagHour = resultHour
+        }
+
+        // resultMinuteがマイナスか判別
+        if (resultMinute < 0) {
+            timeLagMinute = (60 - currentMinute) + (minute)
+
+            if (resultHour < 0) {
+                timeLagHour = (24 - currentHourOfDay) + (hourOfDay) - 1
+            } else if (resultHour == 0) {
+                timeLagHour = 23
+            }
+
+        } else {
+            timeLagMinute = resultMinute
+        }
+
+        // 設定時刻を表示
         timeText.text = "%1$02d:%2$02d".format(hourOfDay, minute)
+        // 時間差分を表示
+        timeLagText.text = "%1$01d時間%2$02d分後に設定されています。".format(timeLagHour, timeLagMinute)
+
+        // 設定時刻を格納
+        setHour = hourOfDay
+        setMinute = minute
     }
 
     // TestDialogの「OK」をタップした処理
@@ -66,13 +107,22 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
         // onCreateから起動したことを確認する
         onCreateMark = true
 
+        // カレンダーを取得
+        calendar = Calendar.getInstance()
         // 「時刻」に現在時刻を最初に表示する
         timeText.text = getToday()
         // 「時刻」をタップ
         timeView.setOnClickListener {
+            // Bundleを生成し、「時間」「分」を格納
+            val bundle = Bundle()
+            bundle.putInt("setHour", setHour!!)
+            bundle.putInt("setMinute", setMinute!!)
+
             // TimePickerDialogを呼び出す
-            val dialog = TimePickerFragment()
-            dialog.show(supportFragmentManager, "time_dialog")
+            val fragment = TimePickerFragment()
+            fragment.arguments = bundle // バンドルをセット
+            fragment.show(supportFragmentManager, "time_dialog")
+
             // 連打防止
             doubleTapStop(it)
         }
@@ -193,8 +243,8 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
                     // アラーム音再生
                     playAlarm()
                     // ダイアログを呼び出す
-                    val dialog = TestDialog()
-                    dialog.show(supportFragmentManager, "タグ名")
+                    val fragment = TestDialog()
+                    fragment.show(supportFragmentManager, "タグ名")
                 }
             }
         }
@@ -252,6 +302,8 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
         // OKボタンの処理
         okBtn.setOnClickListener {
 
+
+            finish()
         }
 
         // キャンセルの処理
@@ -310,10 +362,9 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
 
     // 現在時刻を取得するメソッド
     private fun getToday(): String {
-        val c = Calendar.getInstance()
-        val hour = c.get(Calendar.HOUR_OF_DAY)
-        val minute = c.get(Calendar.MINUTE)
-        return "%1$02d:%2$02d".format(hour, minute)
+        setHour = calendar!!.get(Calendar.HOUR_OF_DAY)
+        setMinute = calendar!!.get(Calendar.MINUTE)
+        return "%1$02d:%2$02d".format(setHour, setMinute)
     }
 
     // 連打防止メソッド
