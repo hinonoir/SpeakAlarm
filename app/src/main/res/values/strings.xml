@@ -20,4 +20,5 @@
     <string name="sunday_text">日曜日</string>
     <string name="dayofweek_default_text">1回のみ</string>
     <string name="timelag_text">--時間--分後に設定されています。</string>
+    <string name="label_text">ラベル</string>
 </resources>

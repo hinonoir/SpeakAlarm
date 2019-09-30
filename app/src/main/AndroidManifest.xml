@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.speakalarm">
+        package="com.example.speakalarm">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
             android:name=".CustomApplication"
@@ -11,24 +15,40 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <receiver
+                android:name=".AlarmSnoozeBroadcastReceiver"
+                android:enabled="true"
+                android:exported="true"></receiver>
+        <receiver
+                android:name=".AlarmStopBroadcastReceiver"
+                android:enabled="true"
+                android:exported="true" />
+
+        <service
+                android:name=".ForegroundService"
+                android:enabled="true"
+                android:exported="true" />
+
+        <receiver
                 android:name=".AlarmBroadcastReceiver"
                 android:enabled="true"
                 android:exported="true">
+            <intent-filter android:priority="500">
+                <action android:name="android.intent.android.BOOT_COMPLETED" />
+            </intent-filter>
         </receiver>
 
         <activity
                 android:name=".EditActivity"
-                android:screenOrientation="portrait">
-        </activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".MainActivity"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

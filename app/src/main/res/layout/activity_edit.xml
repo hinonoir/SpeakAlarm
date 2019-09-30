@@ -7,34 +7,34 @@
         tools:context=".EditActivity">
 
     <LinearLayout
+            android:id="@+id/dummyItem"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/dummyItem"
-            android:orientation="horizontal" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="#F1F1F1"
-            app:layout_constraintHorizontal_bias="1.0"
-            android:id="@+id/scrollView"
             android:layout_marginBottom="50dp"
+            android:background="#F1F1F1"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ConstraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/ConstraintLayout">
+                android:orientation="vertical">
 
             <TextView
                     android:id="@+id/timeLagText"
@@ -53,31 +53,31 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             <View
+                    android:id="@+id/timeView"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
-                    android:id="@+id/timeView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="1dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:background="@color/colorView"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintTop_toBottomOf="@+id/timeLagText"
-                    android:layout_marginTop="1dp" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/timeLagText" />
 
             <TextView
+                    android:id="@+id/timeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/timeTitle"
-                    android:textAlignment="center"
-                    app:layout_constraintStart_toStartOf="@+id/timeView"
-                    app:layout_constraintTop_toTopOf="@+id/timeView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_marginStart="16dp"
                     android:text="@string/time_title"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     app:layout_constraintBottom_toBottomOf="@+id/timeView"
-                    android:layout_marginStart="16dp" />
+                    app:layout_constraintStart_toStartOf="@+id/timeView"
+                    app:layout_constraintTop_toTopOf="@+id/timeView" />
 
             <TextView
                     android:id="@+id/timeText"
@@ -92,30 +92,30 @@
                     app:layout_constraintTop_toTopOf="@+id/timeView" />
 
             <View
+                    android:id="@+id/dayofweekView"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
-                    android:id="@+id/dayofweekView"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/timeView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/colorView" />
+                    android:layout_marginRight="16dp"
+                    android:background="@color/colorView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/timeView" />
 
             <TextView
-                    android:text="@string/dayofweek_title"
+                    android:id="@+id/dayofweekTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/dayofweekTitle"
-                    app:layout_constraintTop_toTopOf="@+id/dayofweekView"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/dayofweek_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     app:layout_constraintBottom_toBottomOf="@+id/dayofweekView"
                     app:layout_constraintStart_toStartOf="@+id/dayofweekView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:layout_marginStart="16dp" />
+                    app:layout_constraintTop_toTopOf="@+id/dayofweekView" />
 
             <TextView
                     android:id="@+id/dayofweekText"
@@ -146,26 +146,26 @@
                     app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                    android:text="@string/speak_title"
+                    android:id="@+id/speakTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/speakTitle"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toTopOf="@+id/SpeakView"
-                    app:layout_constraintStart_toStartOf="@+id/SpeakView"
                     android:layout_marginStart="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:layout_marginTop="16dp"
+                    android:text="@string/speak_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintStart_toStartOf="@+id/SpeakView"
+                    app:layout_constraintTop_toTopOf="@+id/SpeakView" />
 
             <TextView
-                    android:text="@string/testplay_text"
+                    android:id="@+id/testPlayText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/testPlayText"
-                    app:layout_constraintTop_toTopOf="@+id/speakTitle"
-                    app:layout_constraintBottom_toBottomOf="@+id/speakTitle"
+                    android:layout_marginStart="40dp"
+                    android:text="@string/testplay_text"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBottom_toBottomOf="@+id/speakTitle"
                     app:layout_constraintStart_toEndOf="@+id/speakTitle"
-                    android:layout_marginStart="40dp" />
+                    app:layout_constraintTop_toTopOf="@+id/speakTitle" />
 
             <ImageView
                     android:id="@+id/testPlayBtn"
@@ -220,46 +220,46 @@
                     app:layout_constraintTop_toTopOf="@+id/voiceVolImg" />
 
             <TextView
-                    android:text="@string/vib_text"
+                    android:id="@+id/vibText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/vibText"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/vib_text"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintStart_toStartOf="@+id/speedText"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/speedText" />
 
             <ImageView
+                    android:id="@+id/vibImg"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:srcCompat="@drawable/ic_vibration_black_24dp"
-                    android:id="@+id/vibImg"
+                    android:layout_marginStart="8dp"
                     android:rotation="20"
-                    app:layout_constraintTop_toTopOf="@+id/vibText"
                     app:layout_constraintBottom_toBottomOf="@+id/vibText"
                     app:layout_constraintStart_toEndOf="@+id/vibText"
-                    android:layout_marginStart="8dp" />
+                    app:layout_constraintTop_toTopOf="@+id/vibText"
+                    app:srcCompat="@drawable/ic_vibration_black_24dp" />
 
             <CheckBox
+                    android:id="@+id/vibCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/vibCheckbox"
+                    android:layout_marginStart="8dp"
                     android:scaleX="1.3"
                     android:scaleY="1.3"
-                    app:layout_constraintTop_toTopOf="@+id/vibImg"
                     app:layout_constraintBottom_toBottomOf="@+id/vibImg"
                     app:layout_constraintStart_toEndOf="@+id/vibImg"
-                    android:layout_marginStart="8dp" />
+                    app:layout_constraintTop_toTopOf="@+id/vibImg" />
 
             <TextView
-                    android:text="@string/speed_text"
+                    android:id="@+id/speedText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/speedText"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/voiceVolImg"
-                    app:layout_constraintStart_toStartOf="@+id/voiceVolImg" />
+                    android:text="@string/speed_text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="@+id/voiceVolImg"
+                    app:layout_constraintTop_toBottomOf="@+id/voiceVolImg" />
 
             <SeekBar
                     android:id="@+id/speedSeekbar"
@@ -294,41 +294,90 @@
                     app:layout_constraintStart_toStartOf="@+id/SpeakView"
                     app:layout_constraintTop_toBottomOf="@+id/vibCheckbox" />
 
+            <View
+                    android:id="@+id/labelView"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/SpeakView" />
+
+            <Button
+                    android:id="@+id/alarmDeleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="アラーム取り消し"
+                    app:layout_constraintBottom_toBottomOf="@id/ConstraintLayout"
+                    app:layout_constraintStart_toStartOf="@+id/labelView"
+                    app:layout_constraintTop_toBottomOf="@+id/labelView" />
+
+            <TextView
+                    android:id="@+id/labelTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/label_text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintBottom_toBottomOf="@+id/labelView"
+                    app:layout_constraintStart_toStartOf="@+id/labelView"
+                    app:layout_constraintTop_toTopOf="@+id/labelView" />
+
+            <EditText
+                    android:id="@+id/labelText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    app:layout_constraintBottom_toBottomOf="@+id/labelView"
+                    app:layout_constraintEnd_toEndOf="@+id/labelView"
+                    app:layout_constraintStart_toEndOf="@+id/labelTitle"
+                    app:layout_constraintTop_toTopOf="@+id/labelView" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <TextView
-            android:text="@string/btn_cancel"
+            android:id="@+id/cancelBtn"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:id="@+id/cancelBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintWidth_percent="0.5"
-            app:layout_constraintEnd_toStartOf="@+id/okBtn"
+            android:background="@color/colorBtn"
             android:gravity="center"
+            android:text="@string/btn_cancel"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:background="@color/colorBtn" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/okBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
 
     <TextView
+            android:id="@+id/okBtn"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:id="@+id/okBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintWidth_percent="0.5"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:background="@color/colorBtn"
-            android:text="@string/btn_ok" />
+            android:gravity="center"
+            android:text="@string/btn_ok"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
 
     <View
+            android:id="@+id/separator"
             android:layout_width="2dp"
             android:layout_height="40dp"
-            android:id="@+id/separator"
-            app:layout_constraintTop_toTopOf="@+id/cancelBtn"
+            android:background="@color/colorSeparator"
             app:layout_constraintBottom_toBottomOf="@+id/cancelBtn"
             app:layout_constraintEnd_toStartOf="@+id/okBtn"
             app:layout_constraintStart_toStartOf="@+id/okBtn"
-            android:background="@color/colorSeparator" />
+            app:layout_constraintTop_toTopOf="@+id/cancelBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
