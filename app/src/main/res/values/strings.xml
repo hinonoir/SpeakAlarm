@@ -2,15 +2,13 @@
     <string name="app_name">SpeakAlarm</string>
     <string name="action_settings">Settings</string>
     <string name="btn_cancel">キャンセル</string>
-    <string name="btn_ok">OK</string>
+    <string name="btn_save">保存</string>
     <string name="time_title">時刻</string>
     <string name="dayofweek_title">繰り返し</string>
     <string name="speak_title">読み上げテキスト</string>
     <string name="testplay_text">テスト</string>
     <string name="vib_text">バイブレーション</string>
     <string name="speed_text">速さ</string>
-    <string name="male_voice">男性</string>
-    <string name="female_voice">女性</string>
     <string name="monday_text">月曜日</string>
     <string name="tuesday_text">火曜日</string>
     <string name="wednesday_text">水曜日</string>
@@ -19,6 +17,6 @@
     <string name="saturday_text">土曜日</string>
     <string name="sunday_text">日曜日</string>
     <string name="dayofweek_default_text">1回のみ</string>
-    <string name="timelag_text">--時間--分後に設定されています。</string>
     <string name="label_text">ラベル</string>
+    <string name="btn_ok">OK</string>
 </resources>

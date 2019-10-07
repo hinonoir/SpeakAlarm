@@ -14,10 +14,29 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
+        <receiver
+                android:name=".DirectBootReceiver"
+                android:enabled="true"
+                android:exported="true"
+                android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".AlarmBootActivity" />
+
+        <service
+                android:name=".onOffService"
+                android:enabled="true"
+                android:exported="true" />
+
         <receiver
                 android:name=".AlarmSnoozeBroadcastReceiver"
                 android:enabled="true"
-                android:exported="true"></receiver>
+                android:exported="true" />
         <receiver
                 android:name=".AlarmStopBroadcastReceiver"
                 android:enabled="true"
@@ -31,11 +50,7 @@
         <receiver
                 android:name=".AlarmBroadcastReceiver"
                 android:enabled="true"
-                android:exported="true">
-            <intent-filter android:priority="500">
-                <action android:name="android.intent.android.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+                android:exported="true" />
 
         <activity
                 android:name=".EditActivity"

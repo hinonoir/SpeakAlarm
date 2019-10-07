@@ -46,7 +46,6 @@
                     android:background="@color/colorView"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="@string/timelag_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -301,22 +300,13 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@color/colorView"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/SpeakView" />
-
-            <Button
-                    android:id="@+id/alarmDeleteBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="アラーム取り消し"
-                    app:layout_constraintBottom_toBottomOf="@id/ConstraintLayout"
-                    app:layout_constraintStart_toStartOf="@+id/labelView"
-                    app:layout_constraintTop_toBottomOf="@+id/labelView" />
 
             <TextView
                     android:id="@+id/labelTitle"
@@ -330,7 +320,7 @@
                     app:layout_constraintTop_toTopOf="@+id/labelView" />
 
             <EditText
-                    android:id="@+id/labelText"
+                    android:id="@+id/label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -354,17 +344,17 @@
             android:text="@string/btn_cancel"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/okBtn"
+            app:layout_constraintEnd_toStartOf="@+id/saveBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.5" />
 
     <TextView
-            android:id="@+id/okBtn"
+            android:id="@+id/saveBtn"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@color/colorBtn"
             android:gravity="center"
-            android:text="@string/btn_ok"
+            android:text="@string/btn_save"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -376,8 +366,8 @@
             android:layout_height="40dp"
             android:background="@color/colorSeparator"
             app:layout_constraintBottom_toBottomOf="@+id/cancelBtn"
-            app:layout_constraintEnd_toStartOf="@+id/okBtn"
-            app:layout_constraintStart_toStartOf="@+id/okBtn"
+            app:layout_constraintEnd_toStartOf="@+id/saveBtn"
+            app:layout_constraintStart_toStartOf="@+id/saveBtn"
             app:layout_constraintTop_toTopOf="@+id/cancelBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
