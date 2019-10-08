@@ -10,7 +10,6 @@ class CustomApplication : Application() {
         super.onCreate()
         Realm.init(this) // Realmライブラリの初期化
         val builder = RealmConfiguration.Builder()
-//        builder.schemaVersion(1L).migration(Migration())
         val config = builder.build()
         Realm.setDefaultConfiguration(config) // RealmConfigurationの設定
     }

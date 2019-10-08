@@ -22,10 +22,10 @@ class CustomRecyclerViewAdapter(
     private var rResults: RealmResults<SpeakAlarm> = realmResults
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        // 表示するレイアウトを設定
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.one_result, parent, false)
-        val viewholder = ViewHolder(view)
-        return viewholder
+        return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
