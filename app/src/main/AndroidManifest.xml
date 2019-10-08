@@ -14,12 +14,30 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <service
+                android:name=".SpeakTextService"
+                android:enabled="true"
+                android:exported="true"></service>
+
+        <receiver
+                android:name=".stopServiceReceiver"
+                android:enabled="true"
+                android:exported="true" />
+        <receiver
+                android:name=".StopServiceReceiver"
+                android:enabled="true"
+                android:exported="true" />
+
+        <service
+                android:name=".StopService"
+                android:enabled="true"
+                android:exported="true" />
 
         <receiver
                 android:name=".DirectBootReceiver"
+                android:directBootAware="true"
                 android:enabled="true"
-                android:exported="true"
-                android:directBootAware="true">
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

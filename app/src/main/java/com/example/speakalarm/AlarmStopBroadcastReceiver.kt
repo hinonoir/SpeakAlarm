@@ -5,10 +5,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
+
 
 class AlarmStopBroadcastReceiver : BroadcastReceiver() {
-
     @TargetApi(Build.VERSION_CODES.O)
     override fun onReceive(context: Context, intent: Intent) {
 
@@ -24,10 +23,9 @@ class AlarmStopBroadcastReceiver : BroadcastReceiver() {
         val getSpeakTextResult = intent.getStringExtra("speakText") // 読み上げるテキスト
         val getLabelTextResult = intent.getStringExtra("labelText") // アラームのラベル
         val getAutoSnoozeCount = intent.getStringExtra("autoSnoozeCount") // 自動スヌーズのカウント
-        Log.d("testReceiver", "$getHourResult,$getMinuteResult,$getRequestCodeResult")
 
-        val serviceIntent = Intent(context, ForegroundService::class.java)
-        serviceIntent.putExtra("alarm", "off")
+        // SpeakTextServiceを開始する
+        val serviceIntent = Intent(context, SpeakTextService::class.java)
         serviceIntent.putExtra("repeat", getRepeatResult)
         serviceIntent.putExtra("vibration", getVibrationResult)
         serviceIntent.putExtra("dayOfWeek", getDayOfWeekResult)

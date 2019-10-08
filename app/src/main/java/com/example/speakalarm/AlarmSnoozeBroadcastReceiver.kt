@@ -24,7 +24,7 @@ class AlarmSnoozeBroadcastReceiver : BroadcastReceiver() {
         val getLabelTextResult = intent.getStringExtra("labelText") // アラームのラベル
         val getAutoSnoozeCount = intent.getStringExtra("autoSnoozeCount") // 自動スヌーズのカウント
 
-        val serviceIntent = Intent(context, ForegroundService::class.java)
+        val serviceIntent = Intent(context, SpeakTextService::class.java)
         serviceIntent.putExtra("snooze", "on")
         serviceIntent.putExtra("repeat", getRepeatResult)
         serviceIntent.putExtra("vibration", getVibrationResult)
