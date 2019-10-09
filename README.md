@@ -2,10 +2,6 @@
 セットしたテキストを読み上げてくれるAndroidのアラームアプリです。
 アラーム時に表示されるダイアログで「OK」か「スヌーズ」をタップすると読み上げます。
 
-## インストール
-<img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
-
-
 ## スクリーンショット
 <img src="https://user-images.githubusercontent.com/46076511/66407405-1dbc9380-ea28-11e9-8aaf-a47bfa779bcd.gif" alt="スピークアラーム" width=35%/>
 <p> Android10は通知</p>
