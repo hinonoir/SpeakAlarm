@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.example.speakalarm">
+        package="com.hino.speakalarm">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -18,20 +18,6 @@
                 android:name=".SpeakTextService"
                 android:enabled="true"
                 android:exported="true"></service>
-
-        <receiver
-                android:name=".stopServiceReceiver"
-                android:enabled="true"
-                android:exported="true" />
-        <receiver
-                android:name=".StopServiceReceiver"
-                android:enabled="true"
-                android:exported="true" />
-
-        <service
-                android:name=".StopService"
-                android:enabled="true"
-                android:exported="true" />
 
         <receiver
                 android:name=".DirectBootReceiver"
