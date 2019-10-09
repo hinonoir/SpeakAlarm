@@ -6,7 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 
-
+/*
+* ForegroundServiceでストップを受け取るレシーバー。
+* SpeakTextServiceに送信する。
+*/
 class AlarmStopBroadcastReceiver : BroadcastReceiver() {
     @TargetApi(Build.VERSION_CODES.O)
     override fun onReceive(context: Context, intent: Intent) {

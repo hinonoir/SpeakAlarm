@@ -28,6 +28,9 @@ import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.dialog_dayofweek.view.*
 import java.util.*
 
+/*
+* アラームの新規作成・編集を行うクラス。
+*/
 class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListener,
     TextToSpeech.OnInitListener, TestDialog.Listener {
 

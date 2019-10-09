@@ -6,6 +6,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 
+/*
+* ForegroundServiceでスヌーズを受け取るレシーバー。
+* SpeakTextServiceに送信する。
+*/
 class AlarmSnoozeBroadcastReceiver : BroadcastReceiver() {
 
     @RequiresApi(Build.VERSION_CODES.O)

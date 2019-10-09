@@ -20,6 +20,9 @@ import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.activity_alarm_boot.*
 import java.util.*
 
+/*
+* アラーム起動時に呼び出すActivityを呼び出すクラス（Android9以下）
+ */
 class AlarmBootActivity : AppCompatActivity(), TextToSpeech.OnInitListener,
     AlarmDialog.Listener {
     private var preMusicVol: Int? = null // 端末の元の音量設定(アラーム音: メディアの音量)

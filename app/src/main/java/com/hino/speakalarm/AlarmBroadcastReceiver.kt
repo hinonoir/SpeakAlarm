@@ -5,6 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 
+/*
+* アラーム起動時にブロードキャストを受け取るレシーバー。
+* Android10はForegroundServiceを、Android9以下はAlarmBootActivityを呼び出す。
+*/
 class AlarmBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
 

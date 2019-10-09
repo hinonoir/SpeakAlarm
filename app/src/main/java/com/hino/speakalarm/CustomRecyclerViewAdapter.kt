@@ -15,7 +15,11 @@ import io.realm.RealmResults
 import io.realm.kotlin.where
 import java.util.*
 
-
+/*
+* RecyclerView.Adapterを継承するクラス。
+* RealmResults<SpeakAlarm>を受け取り、
+* one_resultの作成、件数の取得、speakAlarmオブジェクト取得を行う。
+*/
 class CustomRecyclerViewAdapter(
     realmResults: RealmResults<SpeakAlarm>
 ) : RecyclerView.Adapter<ViewHolder>() {

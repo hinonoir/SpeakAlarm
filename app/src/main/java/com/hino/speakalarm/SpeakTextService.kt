@@ -19,6 +19,10 @@ import io.realm.Realm
 import io.realm.kotlin.where
 import java.util.*
 
+/*
+* ForegroundServiceからReceiverを介して受け取ったデータを元に、
+* テキストの読み上げ、アラームの再設定（繰り返しあり）、アラームのOFF（1回のみ）を行うクラス
+*/
 class SpeakTextService : Service(), TextToSpeech.OnInitListener {
     private var preMusicVol: Int? = null // 端末の元の音量設定(アラーム音: メディアの音量)
     private var preVoiceVol: Int? = null // 端末の元の音量設定(テキスト読み上げ: 着信音の音量)

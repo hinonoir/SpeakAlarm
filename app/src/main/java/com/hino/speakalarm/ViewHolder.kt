@@ -7,6 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.one_result.view.*
 
+/*
+* RecyclerView.ViewHolderを継承するクラス。
+* one_result.xmlのViewの対応付けをする。
+*/
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var onOffCheck: CheckBox? = null
     var label: TextView? = null

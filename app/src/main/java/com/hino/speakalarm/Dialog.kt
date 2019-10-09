@@ -8,7 +8,10 @@ import android.os.Bundle
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 
-// タイムピッカーのダイアログ
+/*
+* タイムピッカーのダイアログクラス。
+* アラームの時刻指定に使用する。
+*/
 class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
     interface OnTimeSelectedListener {
@@ -38,7 +41,9 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
     }
 }
 
-// テスト再生に表示するダイアログ
+/*
+* アラームのテスト再生に表示するダイアログクラス。
+*/
 class TestDialog : DialogFragment() {
 
     interface Listener {
@@ -69,7 +74,11 @@ class TestDialog : DialogFragment() {
     }
 }
 
-// アラーム時に表示するダイアログ
+/*
+* アラームの起動時に表示するダイアログクラス。（Android9以下）
+* ラベル・テキストの内容を表示する。
+* OKでアラームストップ、スヌーズで5分後にアラームを鳴らす。
+*/
 class AlarmDialog : DialogFragment() {
 
     interface Listener {

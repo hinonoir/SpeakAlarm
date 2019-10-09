@@ -5,6 +5,9 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.*
 
+/*
+* モデルクラスの作成をするクラス
+*/
 open class SpeakAlarm : RealmObject() {
     @PrimaryKey
     var id: Int = 0

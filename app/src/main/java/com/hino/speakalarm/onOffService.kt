@@ -9,6 +9,10 @@ import android.os.Build
 import android.os.IBinder
 import java.util.*
 
+/*
+* 作成済みのアラームのON/OFFを行うクラス。
+* MainActivityで作成済みのアラームにチェックの有無でセット・キャンセルを行う。
+*/
 class onOffService : Service() {
     private var vibrationCb: Boolean = false // バイブレーションのON・OFF
     private var setHour: Int? = null // セットする時間

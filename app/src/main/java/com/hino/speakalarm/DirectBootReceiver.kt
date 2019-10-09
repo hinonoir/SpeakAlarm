@@ -10,6 +10,10 @@ import io.realm.Realm
 import io.realm.kotlin.where
 import java.util.*
 
+/*
+* Androidのダイレクトブート時にアラームを再設定するクラス。
+* 対象API24以降（Android7以降）
+*/
 class DirectBootReceiver : BroadcastReceiver() {
     private lateinit var calendar: Calendar // カレンダー
     private var setHour: Int? = null // セットする時間

@@ -14,6 +14,10 @@ import io.realm.Sort
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
+/*
+* MainActivityのクラス。
+* アラームの新規作成、作成済みのアラームの表示・ON/OFF・削除などを行う。
+*/
 class MainActivity : AppCompatActivity() {
     private lateinit var realm: Realm // Realm
     private lateinit var adapter: CustomRecyclerViewAdapter // Adapter
