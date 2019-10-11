@@ -15,9 +15,31 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <service
-                android:name=".SpeakTextService"
+                android:name=".TestAlarmService"
                 android:enabled="true"
                 android:exported="true"></service>
+
+        <receiver
+                android:name=".TestAlarmReceiver"
+                android:enabled="true"
+                android:exported="true" />
+
+        <service
+                android:name=".testNotificationService"
+                android:enabled="true"
+                android:exported="true" />
+
+        <receiver
+                android:name=".testNotificationReceiver"
+                android:enabled="true"
+                android:exported="true" />
+
+        <activity android:name=".testNotification" />
+
+        <service
+                android:name=".SpeakTextService"
+                android:enabled="true"
+                android:exported="true" />
 
         <receiver
                 android:name=".DirectBootReceiver"

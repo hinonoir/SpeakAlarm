@@ -70,6 +70,9 @@ class SpeakTextService : Service(), TextToSpeech.OnInitListener {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        val foreIntent = Intent(this, ForegroundService::class.java)
+        stopService(foreIntent)
+
         // アラームのデータを保存する
         alarmDataGet(intent)
         // 設定したアラームの音量

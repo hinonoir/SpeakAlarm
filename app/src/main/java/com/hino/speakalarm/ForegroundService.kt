@@ -67,7 +67,7 @@ class ForegroundService : Service() {
             playAlarm() // アラームを鳴らす
             // バイブレーションを鳴らす
             if (setVibration!!) playVibration()
-            fireNotification() // 通知起動
+            fireNotification() // アラームの通知起動
             // 何も操作がなければ1分後に自動的にスヌーズにする（5回まで）
             if (autoSnoozeCount < 5) {
                 snoozeHandler = Handler()
@@ -115,6 +115,7 @@ class ForegroundService : Service() {
         return START_STICKY
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     override fun onDestroy() {
         super.onDestroy()
         rm.stop() // アラーム音ストップ
@@ -122,31 +123,29 @@ class ForegroundService : Service() {
         preVolumeSet() // 元の音量設定に戻す
         // タップしてアラームを停止させた場合、1分後のスヌーズ処理をキャンセル
         snoozeHandler?.removeCallbacks(runSnooze!!)
+        // アラームを停止させたら、サービス終了時に通知を消す。
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.deleteNotificationChannel("alarm_notification") // アラームの通知を削除
     }
 
-    // 通知メソッド
-    @TargetApi(Build.VERSION_CODES.O)
-    private fun fireNotification(): Int {
-        // NotificationManagerを取得
-        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        // カテゴリー名（通知設定画面に表示される情報）
-        val name = "指定時刻のアラーム"
-        // システムに登録するChannelのID
-        val id = "casareal_foreground"
-        // 通知の詳細情報（通知設定画面に表示される情報）
-        val notifyDescription = "指定時刻にアラームが通知されます"
 
-        // Channelの取得と生成
-        if (manager.getNotificationChannel(id) == null) {
-            val mChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH)
+    // アラームの通知メソッド
+    @TargetApi(Build.VERSION_CODES.O)
+    private fun fireNotification() {
+        val managerAlarm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val nameAlarm = "指定時刻のアラーム"
+        val idAlarm = "alarm_notification"
+        val notifyDescription = "指定時刻のアラームが起動されると通知されます。「OK」か「スヌーズ」をタップすると通知が消えます。"
+        if (managerAlarm.getNotificationChannel(idAlarm) == null) {
+            val mChannel =
+                NotificationChannel(idAlarm, nameAlarm, NotificationManager.IMPORTANCE_HIGH)
             mChannel.apply {
                 description = notifyDescription
                 setSound(null, null) // 通知音を鳴らさない
             }
-            manager.createNotificationChannel(mChannel)
+            managerAlarm.createNotificationChannel(mChannel)
         }
-
-        // アラームストップの処理をブロードキャストに伝える
+        // アラームストップの処理をレシーバーに伝える
         val alarmStopIntent = Intent(this, AlarmStopBroadcastReceiver::class.java)
             .putExtra("repeat", setRepeat)
             .putExtra("vibration", setVibration.toString())
@@ -167,7 +166,7 @@ class ForegroundService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        // スヌーズの処理をブロードキャストに伝える
+        // スヌーズの処理をレシーバーに伝える
         val snoozeIntent = Intent(this, AlarmSnoozeBroadcastReceiver::class.java)
             .putExtra("repeat", setRepeat)
             .putExtra("vibration", setVibration.toString())
@@ -188,7 +187,8 @@ class ForegroundService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val notification = NotificationCompat.Builder(this, id)
+        // Notificationの作成
+        val notificationAlarm = NotificationCompat.Builder(this, idAlarm)
             .setContentTitle(setLabelText)
             .setContentText(setSpeakText)
             .setSmallIcon(R.drawable.ic_launcher_background)
@@ -196,8 +196,7 @@ class ForegroundService : Service() {
             .addAction(R.drawable.ic_launcher_background, "スヌーズ", snoozePi)
             .build()
 
-        notification.flags = Notification.FLAG_AUTO_CANCEL // サービス終了時に通知を消す
-        notification.flags = Notification.FLAG_NO_CLEAR // スライドしても消えない
+        notificationAlarm.flags = Notification.FLAG_NO_CLEAR // スライドしても消えない
 
         Thread(
             Runnable {
@@ -207,11 +206,8 @@ class ForegroundService : Service() {
                 stopForeground(STOP_FOREGROUND_DETACH)
             }).start()
 
-        startForeground(1, notification)
-
-        return START_STICKY
+        startForeground(1, notificationAlarm)
     }
-
 
     // アラームの初期化・再生
     private fun playAlarm() {

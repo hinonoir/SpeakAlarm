@@ -299,16 +299,15 @@ class EditActivity : AppCompatActivity(), TimePickerFragment.OnTimeSelectedListe
             if (speakText.text.toString() == "") {
                 showToast("テキストが入力されていません")
             } else {
-                // アラーム音再生
-                playAlarm()
-                // バイブレーションにチェックが入っていたら鳴らす
-                if (vibrationCb) {
-                    playVibration()
-                }
                 // ダイアログを呼び出す
                 val fragment = TestDialog()
-                fragment.show(supportFragmentManager, "タグ名")
-
+                fragment.show(supportFragmentManager, "テストダイアログ")
+                // アラーム音再生
+                playAlarm()
+                if (vibrationCb) {
+                    // バイブレーションにチェックが入っていたら鳴らす
+                    playVibration()
+                }
                 if (tts?.isSpeaking!!) {
                     // まだテキストを読み上げている途中なら停止する
                     tts?.stop()
