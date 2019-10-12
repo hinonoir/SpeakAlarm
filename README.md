@@ -3,7 +3,7 @@
 アラーム時に表示されるダイアログで「OK」か「スヌーズ」をタップすると読み上げます。
 
 ## インストール
-<a href="https://play.google.com/store/apps/details?id=com.hino.speakalarm" target="_blank">
+<a href="https://play.google.com/store/apps/details?id=com.hino.speakalarm">
   <img alt="Get it on Google Play"
        src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
 </a>
