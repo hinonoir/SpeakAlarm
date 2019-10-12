@@ -1,7 +1,7 @@
 # スピークアラーム
 セットしたテキストを読み上げてくれるAndroidのアラームアプリです。
 アラーム時に表示されるダイアログで「OK」か「スヌーズ」をタップすると読み上げます。
-Android１０は通知が起動します。
+Android10は通知が起動します。
 
 ## インストール
 <a href="https://play.google.com/store/apps/details?id=com.hino.speakalarm">
